@@ -82,6 +82,6 @@
 
 使用了[Images.weserv.nl](https://images.weserv.nl/)服务
 
-会在输出时自动替换为经过Images.weserv.nl代理的图片，并且能过解决防盗链
+会在输出时自动替换为经过Images.weserv.nl代理的图片，并且能过解决防盗链（要在设置选择哦）
 
 就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=`
