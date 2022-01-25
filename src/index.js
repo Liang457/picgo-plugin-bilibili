@@ -37,6 +37,7 @@ module.exports = (ctx) => {
     }
     const SESSDATA = userConfig.SESSDATA
     const imgList = ctx.output
+    const weserv = userConfig.weserv服务
     for (let i in imgList) {
       let image = imgList[i].buffer
       if (!image && imgList[i].base64Image) {
@@ -48,12 +49,17 @@ module.exports = (ctx) => {
       await fs.writeFileSync(filePath, data)
       const postConfig = postOptions(SESSDATA, fileName, fs.createReadStream(filePath))
       let body = await ctx.Request.request(postConfig)
-      fs.unlink(filePath, () => {})
+      fs.unlink(filePath, () => { })
       body = JSON.parse(body)
       if (body.message === 'success') {
         delete imgList[i].base64Image
         delete imgList[i].buffer
-        imgList[i].imgUrl = body.data.image_url.replace('http', 'https://images.weserv.nl/?url=https')
+        if (weserv === 'true') {
+          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://images.weserv.nl/?url=https')
+        }
+        else {
+          imgList[i].imgUrl = body.data.image_url.replace('http', 'https')
+        }
       } else {
         ctx.emit('notification', {
           title: '上传失败',
@@ -84,6 +90,21 @@ module.exports = (ctx) => {
         required: true,
         message: 'SESSDATA',
         alias: 'SESSDATA'
+      },
+      {
+        name: 'weserv服务',
+        type: 'list',
+        default: 'true',
+        required: true,
+        message: 'weserv',
+        alias: '使用Images.weserv.nl解决防盗链',
+        choices: [{
+          name: '使用该服务',
+          value: 'true'
+        }, {
+          name: '不了',
+          value: 'false'
+        }]
       }
     ]
   }
