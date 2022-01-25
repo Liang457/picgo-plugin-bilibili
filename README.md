@@ -78,24 +78,10 @@
 
 ### 解决B站防盗链（403）
 
->B站开启了防盗链，利用的是HTTP的Referer属性做判断。如果Referer是他白名单之外的网站，就会返回403
+[更加方便地解决B站防盗链 #5](https://github.com/xlzy520/picgo-plugin-bilibili/issues/5)
 
-#### 全站图片使用
+使用了[Images.weserv.nl](https://images.weserv.nl/)服务
 
-在html的head标签中设置如下标志，那么全站资源引用都不会携带referrer
+会在输出时自动替换为经过Images.weserv.nl代理的图片，并且能过解决防盗链
 
-```html
-<meta name="referrer" content="no-referrer">
-```
-
-
-
-#### 新窗口打开
-
-主要设置`rel="noreferrer"`，使用`window.open`打开的话是会默认携带`referrer`的，第一次还是会403
-
-```html
-<a rel="noreferrer" target="_blank"></a> 
-```
-
-
+就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=`
