@@ -55,7 +55,11 @@ module.exports = (ctx) => {
         delete imgList[i].base64Image
         delete imgList[i].buffer
         if (weserv === 'true') {
-          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://images.weserv.nl/?url=https')
+          // 将链接替换为 images.weserv 的
+          // 识别 .gif 图像并为其添加 &n=-1 参数
+          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://images.weserv.nl/?url=https') //.replace('.gif', '.gif&n=-1')
+          imgList[i].imgUrl = imgList[i].imgUrl.replace('.gif', '.gif&n=-1')
+
         }
         else {
           imgList[i].imgUrl = body.data.image_url.replace('http', 'https')

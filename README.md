@@ -9,11 +9,13 @@
 使用用户动态的图片上传API。填写`SESSDATA`即可，获取方式在下面。
 
 ### 目录
-1. [其他推荐](#其他推荐)
-2. [安装](#安装)
-3. [获取B站SESSDATA](#获取b站sessdata)
-4. [图片样式](#图片样式)
-5. [解决B站防盗链（403）](#解决b站防盗链-403)
+- [picgo-plugin-bilibili](#picgo-plugin-bilibili)
+  - [目录](#目录)
+  - [其他推荐](#其他推荐)
+  - [安装](#安装)
+  - [获取B站SESSDATA](#获取b站sessdata)
+  - [图片样式](#图片样式)
+  - [解决B站防盗链（403）](#解决b站防盗链403)
 
 ### 其他推荐
 - [浏览器插件-Bilibili图床](https://github.com/xlzy520/bilibili-img-uploader)
@@ -47,43 +49,14 @@
 
 
 ### 图片样式
-例如原图： <a href="https://i0.hdslb.com/bfs/album/a18a3f8d666dc19c3216bef39a092e0e60c90eb4.png" rel="noreferrer" target=”_blank“>https://i0.hdslb.com/bfs/album/a18a3f8d666dc19c3216bef39a092e0e60c90eb4.png</a>
-
-规定高宽，质量压缩: <a href="https://i0.hdslb.com/bfs/album/a18a3f8d666dc19c3216bef39a092e0e60c90eb4.png@14w_14h_1e_1c" rel="noreferrer" target=”_blank“>https://i0.hdslb.com/bfs/album/a18a3f8d666dc19c3216bef39a092e0e60c90eb4.png@14w_14h_1e_1c</a>
-
-
-| Type  | Url     | 
-| ------| --------|
-| 原图  | baseURL/1.jpg  |
-| 原分辨率，质量压缩  | baseURL/1.jpg@1e_1c.jpg  |
-| 规定宽，高度自适应，质量压缩  | baseURL/1.jpg@104w_1e_1c.jpg   |
-| 规定高，宽度自适应，质量压缩  | baseURL/1.jpg@104h_1e_1c.jpg   |
-| 规定高宽，质量压缩  | baseURL/1.jpg@104w_104h_1e_1c.jpg   |
-| 原分辨率，webp格式(占用最小)   | baseURL/1.jpg@104w_104h_1e_1c.webp |
-| 规定高度，webp格式(占用最小)   | baseURL/1.jpg@104w_104h_1e_1c.webp |
-
-格式：(图像原链接)@(\d+[whsepqoc]_?)*(\.(|webp|gif|png|jpg|jpeg))?$
-- w:[1, 9223372036854775807] (width，图像宽度)
-- h:[1, 9223372036854775807] (height，图像高度)
-- s:[1, 9223372036854775807] (作用未知)
-- e:[0,2] (resize，0:保留比例取其小，1:保留比例取其大，2:不保留原比例，不与c混用)
-- p:[1,1000] (默认100，放大倍数，不与c混用)
-- q:[1,100] (quality，默认75，图像质量)
-- o:[0,1] (作用未知)
-- c:[0,1] (clip，0:默认，1:裁剪)
-- webp,png,jpeg,gif(不加则保留原格式)
-- 不区分大小写，相同的参数后面覆盖前面
-- 计算后的实际w*h不能大于原w*h，否则wh参数失效
-
+可以参考[哔哩哔哩自己的](https://github.com/xlzy520/picgo-plugin-bilibili#%E5%9B%BE%E7%89%87%E6%A0%B7%E5%BC%8F)或 [Images.weserv.nl 的图片处理](https://images.weserv.nl/docs/)
 
 ### 解决B站防盗链（403）
 
 [更加方便地解决B站防盗链 #5](https://github.com/xlzy520/picgo-plugin-bilibili/issues/5)
 
-使用了[Images.weserv.nl](https://images.weserv.nl/)服务
+使用了 [Images.weserv.nl](https://images.weserv.nl/) 服务
 
-会在输出时自动替换为经过Images.weserv.nl代理的图片，并且能过解决防盗链（要在设置选择哦）
+会在输出时自动替换为经过 Images.weserv.nl 代理的图片，并且能过解决防盗链（要在设置选择哦）
 
-就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=`
-
-注意：如果是 `.gif` 动图，需要在链接上加入 `n=-1`
+就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=` (ps: 如果是 gif 动图还会在后面加入)
