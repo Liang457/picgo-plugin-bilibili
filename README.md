@@ -59,4 +59,4 @@
 
 会在输出时自动替换为经过 Images.weserv.nl 代理的图片，并且能过解决防盗链（要在设置选择哦）
 
-就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=` (ps: 如果是 gif 动图还会在后面加入)
+就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=` (ps: 如果是 gif 动图还会在后面加入 `n=-1` 参数)
