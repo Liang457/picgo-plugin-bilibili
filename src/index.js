@@ -30,7 +30,7 @@ module.exports = (ctx) => {
       ctx.emit('notification', {
         title: '请先配置SESSDATA',
         body: '链接已复制，请打开浏览器粘贴地址查看相关教程',
-        text: 'https://xlzy520.cn/pages/8b9f9f/'
+        text: 'https://www.yuque.com/docs/share/9035662a-f2bd-4ba2-aa24-73acb98635c7'
       })
       return
       // throw new Error('请先配置SESSDATA')
@@ -49,9 +49,9 @@ module.exports = (ctx) => {
       await fs.writeFileSync(filePath, data)
       const postConfig = postOptions(SESSDATA, fileName, fs.createReadStream(filePath))
       let body = await ctx.Request.request(postConfig)
-      fs.unlink(filePath, () => { })
+      fs.unlink(filePath, () => {})
       body = JSON.parse(body)
-      if (body.message === 'success') {
+      if (body.data && body.data.image_url) {
         delete imgList[i].base64Image
         delete imgList[i].buffer
         if (weserv === 'true') {
@@ -84,7 +84,7 @@ module.exports = (ctx) => {
       {
         name: '获取SESSDATA',
         type: 'input',
-        default: 'https://xlzy520.cn/pages/8b9f9f/',
+        default: 'https://www.yuque.com/docs/share/9035662a-f2bd-4ba2-aa24-73acb98635c7',
         alias: '获取SESSDATA'
       },
       {
