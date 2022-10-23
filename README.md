@@ -21,12 +21,7 @@
 - [浏览器插件-Bilibili图床](https://github.com/xlzy520/bilibili-img-uploader)
 - [Typora插件-Bilibili图床](https://github.com/xlzy520/typora-plugin-bilibili)
 
-
 ### 安装
-
-- 在线安装
-
-  打开 [PicGo](https://github.com/Molunerfinn/PicGo) 详细窗口，选择**插件设置**，搜索**bili**安装，然后重启应用即可。
 
 - 离线安装
 
