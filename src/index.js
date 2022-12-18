@@ -57,7 +57,7 @@ module.exports = (ctx) => {
         if (weserv === 'true') {
           // 将链接替换为 images.weserv 的
           // 识别 .gif 图像并为其添加 &n=-1 参数
-          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://images.weserv.nl/?url=https') //.replace('.gif', '.gif&n=-1')
+          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://wsrv.nl/?url=https')
           imgList[i].imgUrl = imgList[i].imgUrl.replace('.gif', '.gif&n=-1')
 
         }
@@ -101,7 +101,7 @@ module.exports = (ctx) => {
         default: 'true',
         required: true,
         message: 'weserv',
-        alias: '使用Images.weserv.nl解决防盗链',
+        alias: '使用wsrv.nl解决防盗链',
         choices: [{
           name: '使用该服务',
           value: 'true'
