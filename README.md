@@ -43,13 +43,13 @@
 
 
 ### 图片样式
-可以参考[哔哩哔哩自己的](https://github.com/xlzy520/picgo-plugin-bilibili#%E5%9B%BE%E7%89%87%E6%A0%B7%E5%BC%8F)或 [Images.weserv.nl 的图片处理](https://images.weserv.nl/docs/)
+可以参考[哔哩哔哩自己的](https://github.com/xlzy520/picgo-plugin-bilibili#%E5%9B%BE%E7%89%87%E6%A0%B7%E5%BC%8F)或 [wsrv.nl 的图片处理](https://wsrv.nl/docs/)
 
 ### 解决B站防盗链（403）
 
 [更加方便地解决B站防盗链 #5](https://github.com/xlzy520/picgo-plugin-bilibili/issues/5)
 
-使用了 [Images.weserv.nl](https://images.weserv.nl/) 服务
+使用了 [wsrv.nl](https://wsrv.nl/) 服务
 
 会在输出时自动替换为经过 Images.weserv.nl 代理的图片，并且能过解决防盗链（要在设置选择哦）
 
