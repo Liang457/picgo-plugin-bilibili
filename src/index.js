@@ -9,18 +9,19 @@ module.exports = (ctx) => {
       config: config
     })
   }
-  const postOptions = (SESSDATA, fileName, image) => {
+  const postOptions = (SESSDATA, csrf, fileName, image) => {
     return {
       method: 'POST',
-      url: `https://api.vc.bilibili.com/api/v1/drawImage/upload`,
+      url: `https://api.bilibili.com/x/article/creative/article/upcover`,
       headers: {
         contentType: 'multipart/form-data',
         'Cookie': `SESSDATA=${SESSDATA}`
       },
       formData: {
-        file_up: image,
-        category: 'daily',
-        biz: 'draw'
+        binary: image,
+        // category: 'daily',
+        // biz: 'new_dyn',
+        csrf
       }
     }
   }
@@ -35,9 +36,19 @@ module.exports = (ctx) => {
       return
       // throw new Error('请先配置SESSDATA')
     }
+    if (!userConfig.csrf) {
+      ctx.emit('notification', {
+        title: '请先配置csrf',
+        body: '链接已复制，请打开浏览器粘贴地址查看相关教程',
+        text: 'https://www.yuque.com/docs/share/9035662a-f2bd-4ba2-aa24-73acb98635c7'
+      })
+      return
+      // throw new Error('请先配置SESSDATA')
+    }
     const SESSDATA = userConfig.SESSDATA
+    const csrf = userConfig.csrf
     const imgList = ctx.output
-    const weserv = userConfig.weserv服务
+    const weserv = userConfig.usewesenl
     for (let i in imgList) {
       let image = imgList[i].buffer
       if (!image && imgList[i].base64Image) {
@@ -47,22 +58,24 @@ module.exports = (ctx) => {
       const fileName = imgList[i].fileName
       const filePath = path.join(__dirname, fileName)
       await fs.writeFileSync(filePath, data)
-      const postConfig = postOptions(SESSDATA, fileName, fs.createReadStream(filePath))
+      const postConfig = postOptions(SESSDATA, csrf, fileName, fs.createReadStream(filePath))
       let body = await ctx.Request.request(postConfig)
-      fs.unlink(filePath, () => {})
+      fs.unlink(filePath, () => { })
       body = JSON.parse(body)
-      if (body.data && body.data.image_url) {
+      if (body.data && body.data.url) {
         delete imgList[i].base64Image
         delete imgList[i].buffer
-        if (weserv === 'true') {
-          // 将链接替换为 images.weserv 的
-          // 识别 .gif 图像并为其添加 &n=-1 参数
-          imgList[i].imgUrl = body.data.image_url.replace('http', 'https://wsrv.nl/?url=https')
-          imgList[i].imgUrl = imgList[i].imgUrl.replace('.gif', '.gif&n=-1')
+        imgList[i].imgUrl = body.data.url.replace('http', 'https')
+        // wser nl 判断
+        if (weserv) {
+          // Wser nl 的链接添加
+          imgList[i].imgUrl = "https://wsrv.nl/?url=".concat(imgList[i].imgUrl)
+          // Gif 动图判断
+          if (String(body.data.url).lastIndexOf(".gif") != -1) {
+            // 添加 n=-1 参数实现动图效果
+            imgList[i].imgUrl = imgList[i].imgUrl.concat("&n=-1")
+          }
 
-        }
-        else {
-          imgList[i].imgUrl = body.data.image_url.replace('http', 'https')
         }
       } else {
         ctx.emit('notification', {
@@ -82,10 +95,10 @@ module.exports = (ctx) => {
     }
     return [
       {
-        name: '获取SESSDATA',
+        name: '获取SESSDATA和csrf',
         type: 'input',
         default: 'https://www.yuque.com/docs/share/9035662a-f2bd-4ba2-aa24-73acb98635c7',
-        alias: '获取SESSDATA'
+        alias: '获取SESSDATA和csrf'
       },
       {
         name: 'SESSDATA',
@@ -96,19 +109,20 @@ module.exports = (ctx) => {
         alias: 'SESSDATA'
       },
       {
-        name: 'weserv服务',
-        type: 'list',
+        name: 'csrf',
+        type: 'input',
+        default: userConfig.csrf,
+        required: true,
+        message: 'csrf(bli_jct)',
+        alias: 'csrf'
+      },
+      {
+        name: 'usewesenl',
+        type: 'confirm',
         default: 'true',
         required: true,
-        message: 'weserv',
-        alias: '使用wsrv.nl解决防盗链',
-        choices: [{
-          name: '使用该服务',
-          value: 'true'
-        }, {
-          name: '不了',
-          value: 'false'
-        }]
+        message: 'wesenl',
+        alias: '使用wsrv.nl',
       }
     ]
   }

@@ -1,9 +1,6 @@
 ## picgo-plugin-bilibili
 
-[![下载](https://img.shields.io/npm/dm/picgo-plugin-bilibili.svg?color=brightgreen)](https://npmcharts.com/compare/picgo-plugin-smms-user?minimal=true)
-[![版本](https://img.shields.io/npm/v/picgo-plugin-bilibili.svg?color=brightgreen)](https://www.npmjs.com/package/picgo-plugin-smms-user)
-[![许可](https://img.shields.io/badge/license-mit-brightgreen.svg)](https://github.com/xlzy520/picgo-plugin-smms-user/blob/master/License)
-
+[![许可](https://img.shields.io/badge/license-mit-brightgreen.svg)](License)
 
 为 [PicGo](https://github.com/Molunerfinn/PicGo) 开发的一款插件，新增了[B站图床](https://bilibili.com/) 图床。
 使用用户动态的图片上传API。填写`SESSDATA`即可，获取方式在下面。
@@ -32,18 +29,20 @@
 
   切换到新目录执行 `npm install ./picgo-plugin-bilibili`，然后重启应用即可。
 
-### 获取B站SESSDATA
+### 获取B站`SESSDATA``和csrf`
 
 1. 登录[B站](https://www.bilibili.com/)
 2. 按`F12`打开控制台
 3. 找到`SESSDATA`复制即可
+4. 找到`bli_jct`，填写进 `csrf` 即可
 
-![](https://i0.hdslb.com/bfs/album/c78539a4883da29ed0dddfc0fa4e15057911e39d.png)
-
-
+![](https://wsrv.nl/?url=https://article.biliimg.com/bfs/article/f8dacc0a76081764c07c1d40968e7423a970b89d.png)
+![](https://wsrv.nl/?url=https://article.biliimg.com/bfs/article/9e0d900ffe53f2461e298af93a9390aaf6240df1.png)
 
 ### 图片样式
-可以参考[哔哩哔哩自己的](https://github.com/xlzy520/picgo-plugin-bilibili#%E5%9B%BE%E7%89%87%E6%A0%B7%E5%BC%8F)或 [wsrv.nl 的图片处理](https://wsrv.nl/docs/)
+详见 [wsrv.nl的文档](https://wsrv.nl/docs/)
+
+例如 `h=300` 会让图片等比例缩小至高度为300的图片再输出
 
 ### 解决B站防盗链（403）
 
@@ -51,6 +50,6 @@
 
 使用了 [wsrv.nl](https://wsrv.nl/) 服务
 
-会在输出时自动替换为经过 Images.weserv.nl 代理的图片，并且能过解决防盗链（要在设置选择哦）
+输出时替换为 wsrv.nl 的代理图片链接。可以绕过B站的防盗链，不过这个会让图片**加载速度变慢**。
 
-就是在输出时的时候在链接前加上 `https://images.weserv.nl/?url=` (ps: 如果是 gif 动图还会在后面加入 `n=-1` 参数)
+就是在输出时的时候在链接前加上 `https://wsrv.nl/?url=` (如果是 gif 动图还会在后面加入 `n=-1` 参数)
